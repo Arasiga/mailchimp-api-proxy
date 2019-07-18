@@ -14,11 +14,29 @@ const mailchimp = new Mailchimp(api_key);
 // 2. Update the content with a NAME, EMAIL, and MESSAGE given in the call
 // 3. Fire off the campaign
 
-app.get('/test', (req, res) => {
-  mailchimp.get({
-    path: `/campaigns/${campaign_id}/content`
+app.get('/sendEmail', (req, res) => {
+  mailchimp.post({
+    path: `/campaigns/${campaign_id}/actions/replicate`
   })
-    .then( result => res.send(result))
+    .then( result => {
+      const newCampaignID = result.id
+      mailchimp.put({
+        path: `/campaigns/${newCampaignID}/content`,
+        body: {
+          "html": `
+            <h1> You've got mail! </h1>
+            <p> From: ${req.params.name} </p>
+            <p> Email: ${req.params.email} </p>
+            <p> Message>: ${req.params.message} </p>
+          `
+        }
+      })
+        .then( result => {
+          mailchimp.post({
+            path: `/campaigns/${newCampaignID}/send`
+          })
+        })
+    })
 });
 
 const port = process.env.PORT || 9001;
