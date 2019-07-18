@@ -1,0 +1,25 @@
+{
+  "name": "mailchimp-api-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arasiga/mailchimp-api-proxy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arasiga/mailchimp-api-proxy/issues"
+  },
+  "homepage": "https://github.com/Arasiga/mailchimp-api-proxy#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mailchimp-api-v3": "^1.13.1"
+  }
+}
