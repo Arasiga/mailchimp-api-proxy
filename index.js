@@ -32,11 +32,23 @@ app.post('/sendEmail', (req, res) => {
           `
         }
       })
+      .catch( error => {
+        res.send(error)
+      })
         .then( result => {
           mailchimp.post({
             path: `/campaigns/${newCampaignID}/actions/send`
           })
         })
+        .catch( error => {
+          res.send(error)
+        })
+          .then( result => {
+            res.send("Success! " + result)
+          })
+          .catch( error => {
+            res.send(error)
+          })
     })
 });
 
