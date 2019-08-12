@@ -1,11 +1,13 @@
 const express = require('express');
 const Mailchimp = require('mailchimp-api-v3');
+var cors = require('cors');
 require('dotenv').config();
 
 const api_key = process.env.MAILCHIMP_API_KEY;
 const campaign_id = process.env.CAMPAIGN_ID; 
 
 const app = express();
+app.use(cors());
 const mailchimp = new Mailchimp(api_key);
 
 // Route

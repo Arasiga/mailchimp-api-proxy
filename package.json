@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Arasiga/mailchimp-api-proxy#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "mailchimp-api-v3": "^1.13.1"
