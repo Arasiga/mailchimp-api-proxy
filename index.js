@@ -1,6 +1,7 @@
 const express = require('express');
 const Mailchimp = require('mailchimp-api-v3');
-var cors = require('cors');
+const bodyParser = require('body-parser')
+const cors = require('cors');
 require('dotenv').config();
 
 const api_key = process.env.MAILCHIMP_API_KEY;
@@ -10,12 +11,16 @@ const app = express();
 app.use(cors());
 const mailchimp = new Mailchimp(api_key);
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json())
+
 // Route
 // Note -> This will do:
 // 1. Replicate the existing campaign (id given in .env)
 // 2. Update the content with a NAME, EMAIL, and MESSAGE given in the call
 // 3. Fire off the campaign
-
 app.post('/sendEmail', (req, res) => {
   let newCampaignID = ""
   mailchimp.post({
@@ -28,9 +33,9 @@ app.post('/sendEmail', (req, res) => {
         body: {
           "html": `
             <h1> You've got mail! </h1>
-            <p> From: ${req.params.name} </p>
-            <p> Email: ${req.params.email} </p>
-            <p> Message: ${req.params.message} </p>
+            <p> From: ${req.body.name} </p>
+            <p> Email: ${req.body.email} </p>
+            <p> Message: ${req.body.message} </p>
           `
         }
       })
